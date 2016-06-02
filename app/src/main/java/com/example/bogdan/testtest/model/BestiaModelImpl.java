@@ -20,34 +20,30 @@ import rx.schedulers.Schedulers;
  * @date 02.06.16
  */
 public class BestiaModelImpl implements BestiaModel {
-    private final Observable.Transformer schedulersTransformer;
+    private final Observable.Transformer mSchedulersTransformer;
+    private final BestiaApi mApiInterface;
 
-    @Inject
-    BestiaApi apiInterface;
-
-    public BestiaModelImpl() {
-        App.getAppComponent().inject(this);
-        schedulersTransformer = o -> ((Observable) o).subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.computation());
+    public BestiaModelImpl(BestiaApi apiInterface, Observable.Transformer schedulersTransformer) {
+        mApiInterface = apiInterface;
+        mSchedulersTransformer = schedulersTransformer;
     }
 
     @Override
     public Observable<List<Base64>> getMainImageList() {
-        return apiInterface
+        return mApiInterface
                 .getMainImages()
                 .compose(applySchedulers());
     }
 
     @Override
     public Observable<List<Base64>> getNewsImageList() {
-        return apiInterface
+        return mApiInterface
                 .getNewsImages()
                 .compose(applySchedulers());
     }
 
     private <T> Observable.Transformer<T, T> applySchedulers() {
-        return (Observable.Transformer<T, T>) schedulersTransformer;
+        return (Observable.Transformer<T, T>) mSchedulersTransformer;
     }
 
 

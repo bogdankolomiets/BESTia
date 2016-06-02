@@ -50,4 +50,5 @@ public class ApiModule {
     BestiaApi provideApiInterface(Retrofit retrofit) {
         return retrofit.create(BestiaApi.class);
     }
+
 }
