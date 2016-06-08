@@ -39,6 +39,7 @@ public class ResizebleImageView extends ImageView {
             }
             setMeasuredDimension(width, height);
         } else {
+
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }
     }
