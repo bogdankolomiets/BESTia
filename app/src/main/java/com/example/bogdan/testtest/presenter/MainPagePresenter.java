@@ -1,5 +1,7 @@
 package com.example.bogdan.testtest.presenter;
 
+import android.os.Bundle;
+
 /**
  * @author Bogdan Kolomiets
  * @version 1
@@ -7,4 +9,5 @@ package com.example.bogdan.testtest.presenter;
  */
 public interface MainPagePresenter {
 
+    void onCreate(Bundle savedInstanceState);
 }

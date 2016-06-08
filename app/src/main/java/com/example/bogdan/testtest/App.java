@@ -2,7 +2,6 @@ package com.example.bogdan.testtest;
 
 import android.app.Application;
 
-import com.example.bogdan.testtest.di.ApiModule;
 import com.example.bogdan.testtest.di.AppComponent;
 import com.example.bogdan.testtest.di.AppModule;
 import com.example.bogdan.testtest.di.DaggerAppComponent;
@@ -18,12 +17,13 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        System.out.println("app on Create");
         resolveDependencies();
+        System.out.println(mAppComponent);
     }
 
     private void resolveDependencies() {
         mAppComponent = DaggerAppComponent.builder()
-                .apiModule(new ApiModule(Constants.HTTP.BASE_URL))
                 .appModule(new AppModule(this))
                 .build();
     }

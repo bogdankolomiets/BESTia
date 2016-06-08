@@ -10,4 +10,8 @@ public class Constants {
     public static final class HTTP {
         public static final String BASE_URL = "file://android_asset/";
     }
+
+    public static final class UI_COMPONENT {
+
+    }
 }

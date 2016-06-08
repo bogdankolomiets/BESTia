@@ -13,7 +13,7 @@ import rx.Observable;
  */
 public interface BestiaModel {
 
-    Observable<List<Base64>> getMainImageList();
+    Observable<List<String>> getMainImageList();
 
-    Observable<List<Base64>> getNewsImageList();
+    Observable<List<String>> getNewsImageList();
 }
