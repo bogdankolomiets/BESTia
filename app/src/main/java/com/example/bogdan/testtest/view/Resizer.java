@@ -38,6 +38,11 @@ public class Resizer {
         view.setLayoutParams(params);
     }
 
+    public static <V extends View> void setBelow(V view, int belowId) {
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
+        params.addRule(RelativeLayout.BELOW, belowId);
+    }
+
     public static <V extends View> void setPosition(V view, int leftMargin, int topMargin, int rightMargin, int bottomMargin) {
         RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) view.getLayoutParams();
         if (leftMargin != 0)

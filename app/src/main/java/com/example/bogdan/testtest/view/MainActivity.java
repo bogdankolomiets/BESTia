@@ -3,6 +3,7 @@ package com.example.bogdan.testtest.view;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -32,13 +33,17 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
  */
 public class MainActivity extends AppCompatActivity implements MainPageView, View.OnClickListener {
     private final int LAYOUT = R.layout.main_layout;
+    private final int FACEBOOK = 1;
+    private final int TWITTER = 2;
+    private final int GOOGLE = 3;
+    private final int INSTAGRAM = 4;
 
     private ScrollView mScrollView;
 
     private ResizebleImageView start, mainLogo, partTwo, partThree, end, sticks, clip, poster1,
             poster2, poster3, poster4, lighter, metroStick, mainNews, mainMenu;
 
-    private RelativeLayout background;
+    private RelativeLayout background, mainContainer;
 
     @Inject
     MainPagePresenter presenter;
@@ -48,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
         super.onCreate(savedInstanceState);
         App.getAppComponent().plus(new MainPageModule(MainActivity.this)).inject(this);
         setContentView(LAYOUT);
+        mainContainer = (RelativeLayout) findViewById(R.id.mainContainer);
         mScrollView = (ScrollView) findViewById(R.id.mainScroll);
         mainLogo = (ResizebleImageView) findViewById(R.id.mainLogo);
         mainNews = (ResizebleImageView) findViewById(R.id.mainNews);
@@ -65,8 +71,8 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
         start = (ResizebleImageView) findViewById(R.id.partZero);
         end = (ResizebleImageView) findViewById(R.id.partFour);
         background = (RelativeLayout) findViewById(R.id.background);
-        setupComponents();
         OverScrollDecoratorHelper.setUpOverScroll(mScrollView);
+        setupComponents();
         presenter.onCreate(savedInstanceState);
     }
 
@@ -102,6 +108,19 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
         lighter.configureView(100, 100, 394, 4035);
         lighter.setImage(R.drawable.main_light);
         lighter.startAnimation(AnimationUtils.loadAnimation(this, R.anim.main_light_anim));
+        setupSocialButton(70, FACEBOOK);
+        setupSocialButton(208, TWITTER);
+        setupSocialButton(381, GOOGLE);
+        setupSocialButton(554, INSTAGRAM);
+    }
+
+    private void setupSocialButton(int leftMargin, int id) {
+        View btn = new View(this);
+        btn.setId(id);
+        Resizer.configureView(btn, 138, 138);
+        Resizer.setPosition(btn, leftMargin, 5255, 0, 0);
+        mainContainer.addView(btn);
+        btn.setOnClickListener(this);
     }
 
     @Override
@@ -120,20 +139,6 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
-        System.out.println("onStop");
-    }
-
-
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        System.out.println("onDestroy");
-    }
-
-    @Override
     public void showPoster(List<Bitmap> posters) {
         ResizebleImageView[] images = {poster1, poster2, poster3, poster4};
         for (int i = 0; i < images.length; i++) {
@@ -149,6 +154,18 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 finish();
+                break;
+            case FACEBOOK:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/BESTia2015")));
+                break;
+            case TWITTER:
+
+                break;
+            case GOOGLE:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/117373699485632124956/posts")));
+                break;
+            case INSTAGRAM:
+                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/bestia2015/")));
                 break;
         }
     }
