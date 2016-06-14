@@ -2,6 +2,7 @@ package com.example.bogdan.testtest.view;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,10 +23,20 @@ import java.util.List;
 public class NewsAdapter extends BaseAdapter {
     private Context mContext;
     private List<Bitmap> mNewsList;
+    private android.support.v4.util.LruCache<Integer, Bitmap> mMemoryCache;
 
     public NewsAdapter(Context context) {
         mContext = context;
         mNewsList = new ArrayList<>();
+
+        final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
+        final int cacheSize = maxMemory / 8;
+        mMemoryCache = new android.support.v4.util.LruCache<Integer, Bitmap>(cacheSize) {
+            @Override
+            protected int sizeOf(Integer key, Bitmap value) {
+                return value.getByteCount() / 1024;
+            }
+        };
     }
 
     @Override
@@ -67,20 +78,16 @@ public class NewsAdapter extends BaseAdapter {
             holder = (Holder) convertView.getTag();
         }
 
-        image = getItem(position);
-        holder.newsPoster.setImageBitmap(image);
+        loadImage(position, holder.newsPoster);
 
-        image = ImageUtils.decodeBitmap(mContext, R.drawable.news_poster_frame);
-        holder.newsFrame.setImageBitmap(image);
+        loadImage(mContext, R.drawable.news_poster_frame, holder.newsFrame);
 
         if (position % 2 == 0) {
-            image = ImageUtils.decodeBitmap(mContext, R.drawable.news_poster_sprt_0);
-            holder.newsHeader.setImageBitmap(image);
+            loadImage(mContext, R.drawable.news_poster_sprt_0, holder.newsHeader);
             holder.newsPoster.setRotation(1.0f);
             holder.newsFrame.setRotation(1.0f);
         } else {
-            image = ImageUtils.decodeBitmap(mContext, R.drawable.news_poster_sprt_1);
-            holder.newsHeader.setImageBitmap(image);
+            loadImage(mContext, R.drawable.news_poster_sprt_1, holder.newsHeader);
             holder.newsPoster.setRotation(-0.7f);
             holder.newsFrame.setRotation(-0.7f);
         }
@@ -88,7 +95,39 @@ public class NewsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    static class Holder {
+    private void addBitmapToMemoryCache(Integer key, Bitmap bitmap) {
+        if (getBitmapFromMemoryCache(key) == null) {
+            mMemoryCache.put(key, bitmap);
+        }
+    }
+
+    private Bitmap getBitmapFromMemoryCache(Integer key) {
+        return mMemoryCache.get(key);
+    }
+
+    private void loadImage(Context mContext, int resId, ResizebleImageView imageView) {
+        final Integer key = resId;
+        Bitmap bitmap = getBitmapFromMemoryCache(key);
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+        } else  {
+            bitmap = ImageUtils.decodeBitmap(mContext, resId);
+            addBitmapToMemoryCache(key, bitmap);
+        }
+    }
+
+    private void loadImage(int position, ResizebleImageView imageView) {
+        final Integer key = position;
+        Bitmap bitmap = getBitmapFromMemoryCache(key);
+        if (bitmap != null) {
+            imageView.setImageBitmap(bitmap);
+        } else {
+            bitmap = getItem(position);
+            addBitmapToMemoryCache(key, bitmap);
+        }
+    }
+
+    private static class Holder {
         ResizebleImageView newsPoster;
         ResizebleImageView newsFrame;
         ResizebleImageView newsHeader;

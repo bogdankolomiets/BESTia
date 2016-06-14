@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/background1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/mainScroll1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:overScrollMode="never">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/mainScreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/posterFirst1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="3"/>
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/posterSecond1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="-1"/>
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/sticks1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/metroStick1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/clip1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/lighter1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/posterThird1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="2"/>
+                <com.example.bogdan.testtest.view.ResizebleImageView
+                    android:id="@+id/posterFourth1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rotation="2.5"/>
+            </RelativeLayout>
+
+        </ScrollView>
+
+    </RelativeLayout>
+
+</RelativeLayout>

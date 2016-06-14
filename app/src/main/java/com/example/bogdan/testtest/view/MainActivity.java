@@ -145,7 +145,7 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.mainNews:
-                Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+                Intent intent = new Intent(this, NewsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
                 finish();
