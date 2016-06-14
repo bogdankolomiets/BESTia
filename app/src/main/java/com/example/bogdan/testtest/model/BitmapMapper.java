@@ -2,7 +2,10 @@ package com.example.bogdan.testtest.model;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Looper;
 import android.util.Base64;
+
+import com.example.bogdan.testtest.ImageUtils;
 
 import java.util.List;
 
@@ -22,10 +25,7 @@ public class BitmapMapper implements Func1<List<String>, List<Bitmap>> {
             return null;
         List<Bitmap> bitmapList = Observable.from(strings)
                 .map(s -> {
-                    byte[] decode = Base64.decode(s.getBytes(), Base64.DEFAULT);
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(decode, 0, decode.length);
-                    System.out.println("Bitmap height " + bitmap.getHeight() + "   " + bitmap.getWidth());
-                    return bitmap;
+                    return ImageUtils.decodeBitmap(Base64.decode(s.getBytes(), Base64.DEFAULT));
                 })
                 .toList()
                 .toBlocking()

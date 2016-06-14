@@ -5,6 +5,7 @@ import android.app.Application;
 import com.example.bogdan.testtest.di.AppComponent;
 import com.example.bogdan.testtest.di.AppModule;
 import com.example.bogdan.testtest.di.DaggerAppComponent;
+import com.squareup.leakcanary.LeakCanary;
 
 /**
  * @author Bogdan Kolomiets
@@ -17,7 +18,6 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        System.out.println("app on Create");
         resolveDependencies();
         System.out.println(mAppComponent);
     }
@@ -31,4 +31,5 @@ public class App extends Application {
     public static AppComponent getAppComponent() {
         return mAppComponent;
     }
+
 }

@@ -2,38 +2,49 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_background"
-    android:overScrollMode="never">
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/background"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
         <ScrollView
+            android:id="@+id/mainScroll"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:scrollbars="none">
+            android:scrollbars="none"
+            android:overScrollMode="never">
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/partZero"
-                        android:src="@drawable/main_part_0"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/partOne"
-                        android:src="@drawable/main_part_1"
+                        android:id="@+id/mainLogo"
                         android:layout_below="@+id/partZero"
-                        android:layout_height="wrap_content"
-                        android:layout_width="match_parent" />
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <com.example.bogdan.testtest.view.ResizebleImageView
+                        android:id="@+id/mainNews"
+                        android:layout_below="@+id/mainLogo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <com.example.bogdan.testtest.view.ResizebleImageView
+                        android:id="@+id/mainMenu"
+                        android:layout_below="@+id/mainNews"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/partTwo"
-                        android:src="@drawable/main_part_2"
-                        android:layout_below="@+id/partOne"
+                        android:layout_below="@+id/mainMenu"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/partThree"
-                        android:src="@drawable/main_part_3"
                         android:layout_below="@+id/partTwo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
@@ -49,22 +60,18 @@
                         android:rotation="-1"/>
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/sticks"
-                        android:src="@drawable/main_sticks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/metroStick"
-                        android:src="@drawable/main_metro_stick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/clip"
-                        android:src="@drawable/main_pin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/lighter"
-                        android:src="@drawable/main_light"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
@@ -79,12 +86,13 @@
                         android:rotation="2.5"/>
                     <com.example.bogdan.testtest.view.ResizebleImageView
                         android:id="@+id/partFour"
-                        android:src="@drawable/main_part_4"
                         android:layout_below="@+id/partThree"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </RelativeLayout>
 
         </ScrollView>
+
+    </RelativeLayout>
 
 </RelativeLayout>

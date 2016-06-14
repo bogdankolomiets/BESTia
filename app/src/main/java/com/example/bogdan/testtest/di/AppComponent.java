@@ -14,4 +14,6 @@ import dagger.Component;
 public interface AppComponent {
 
     MainPageComponent plus(MainPageModule module);
+
+    NewsPageComponent plus(NewsPageModule module);
 }

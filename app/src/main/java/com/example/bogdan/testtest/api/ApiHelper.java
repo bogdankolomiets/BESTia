@@ -1,6 +1,7 @@
 package com.example.bogdan.testtest.api;
 
 import android.content.Context;
+import android.os.Looper;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +32,7 @@ public class ApiHelper {
     }
 
     public Observable<List<String>> getMainImages() {
+        System.out.println("Главный поток" + (Looper.myLooper() == Looper.getMainLooper()));
         return Observable.from(getImageList("uk-main.json")).toList();
     }
 

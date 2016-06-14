@@ -37,9 +37,8 @@ public class AppModule {
     @Singleton
     @Provides
     Observable.Transformer provideSchedulerTransformer() {
-        return o -> ((Observable) o).subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .unsubscribeOn(Schedulers.computation());
+        return o -> ((Observable) o).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     @Singleton
