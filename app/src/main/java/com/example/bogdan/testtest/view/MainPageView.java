@@ -9,7 +9,7 @@ import java.util.List;
  * @version 1
  * @date 02.06.16
  */
-public interface MainPageView extends View {
+public interface MainPageView extends View{
 
     void showPoster(List<Bitmap> posters);
 }

@@ -1,5 +1,7 @@
-package com.example.bogdan.testtest.di;
+package com.example.bogdan.testtest.di.component;
 
+import com.example.bogdan.testtest.di.ActivityScope;
+import com.example.bogdan.testtest.di.module.MainPageModule;
 import com.example.bogdan.testtest.view.MainActivity;
 
 import dagger.Subcomponent;

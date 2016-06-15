@@ -1,4 +1,4 @@
-package com.example.bogdan.testtest.view;
+package com.example.bogdan.testtest.view.common;
 
 import android.app.Activity;
 import android.content.Context;

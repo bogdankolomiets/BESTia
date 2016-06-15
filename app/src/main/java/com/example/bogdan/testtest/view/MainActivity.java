@@ -7,7 +7,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.res.ResourcesCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -18,8 +17,10 @@ import com.example.bogdan.testtest.App;
 import com.example.bogdan.testtest.Constants;
 import com.example.bogdan.testtest.utils.ImageUtils;
 import com.example.bogdan.testtest.R;
-import com.example.bogdan.testtest.di.MainPageModule;
+import com.example.bogdan.testtest.di.module.MainPageModule;
 import com.example.bogdan.testtest.presenter.MainPagePresenter;
+import com.example.bogdan.testtest.utils.Resizer;
+import com.example.bogdan.testtest.view.common.ResizebleImageView;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
  * @version 1
  * @date 03.06.16
  */
-public class MainActivity extends AppCompatActivity implements MainPageView, View.OnClickListener {
+public class MainActivity extends BaseActivity implements MainPageView, View.OnClickListener {
     private static final int LAYOUT = R.layout.main_layout;
 
     private static final int FACEBOOK = 1;
@@ -48,7 +49,8 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
 
     @BindView(R.id.mainScroll) ScrollView scroll;
 
-    @BindView(R.id.start) ResizebleImageView start;
+    @BindView(R.id.start)
+    ResizebleImageView start;
     @BindView(R.id.middle) ResizebleImageView middle;
     @BindView(R.id.end) ResizebleImageView end;
     @BindView(R.id.sticks) ImageView sticks;
@@ -66,15 +68,19 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.getAppComponent().plus(new MainPageModule(MainActivity.this)).inject(this);
         setContentView(LAYOUT);
         ButterKnife.bind(this);
         OverScrollDecoratorHelper.setUpOverScroll(scroll);
-        setupComponents();
+        setupViews();
         presenter.onCreate(savedInstanceState);
     }
 
-    private void setupComponents() {
+    @Override
+    protected void setupComponent() {
+        App.getAppComponent().plus(new MainPageModule(MainActivity.this)).inject(this);
+    }
+
+    private void setupViews() {
         setupBackground();
         Resizer.into(this);
 
@@ -188,17 +194,7 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
 
     @Override
     public void showError(String message) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
+        error(message);
     }
 
     @Override

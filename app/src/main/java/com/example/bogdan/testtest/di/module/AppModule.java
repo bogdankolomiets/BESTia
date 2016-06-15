@@ -1,4 +1,4 @@
-package com.example.bogdan.testtest.di;
+package com.example.bogdan.testtest.di.module;
 
 import android.content.Context;
 
@@ -6,6 +6,7 @@ import com.example.bogdan.testtest.App;
 import com.example.bogdan.testtest.api.ApiHelper;
 import com.example.bogdan.testtest.model.BestiaModel;
 import com.example.bogdan.testtest.model.BestiaModelImpl;
+import com.example.bogdan.testtest.model.BitmapMapper;
 
 import javax.inject.Singleton;
 
@@ -45,5 +46,11 @@ public class AppModule {
     @Provides
     BestiaModel provideBestiaModel(ApiHelper apiInterface, Observable.Transformer schedulersTransformer) {
         return new BestiaModelImpl(apiInterface, schedulersTransformer);
+    }
+
+    @Singleton
+    @Provides
+    BitmapMapper provideBitmapMapper() {
+        return new BitmapMapper();
     }
 }

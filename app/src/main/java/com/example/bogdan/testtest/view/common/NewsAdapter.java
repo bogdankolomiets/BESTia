@@ -1,4 +1,4 @@
-package com.example.bogdan.testtest.view;
+package com.example.bogdan.testtest.view.common;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,6 +11,8 @@ import android.widget.ImageView;
 
 import com.example.bogdan.testtest.utils.ImageUtils;
 import com.example.bogdan.testtest.R;
+import com.example.bogdan.testtest.utils.Resizer;
+import com.example.bogdan.testtest.utils.MemImageCache;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.bogdan.testtest.view;
+package com.example.bogdan.testtest.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;

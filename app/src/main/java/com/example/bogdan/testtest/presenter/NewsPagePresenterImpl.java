@@ -21,10 +21,10 @@ import rx.Observer;
  */
 public class NewsPagePresenterImpl extends BasePresenter implements NewsPagePresenter {
     private NewsPageView mView;
-    private BitmapMapper mapper = new BitmapMapper();
+
     @Inject
-    public NewsPagePresenterImpl(BestiaModel bestiaModel, NewsPageView view) {
-        super(bestiaModel);
+    public NewsPagePresenterImpl(BestiaModel bestiaModel, BitmapMapper mapper, NewsPageView view) {
+        super(bestiaModel, mapper);
         mView = view;
     }
 
@@ -35,17 +35,19 @@ public class NewsPagePresenterImpl extends BasePresenter implements NewsPagePres
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mView.showLoad();
         mBestiaModel.getNewsImageList()
                 .map(mapper)
                 .subscribe(new Observer<List<Bitmap>>() {
                     @Override
                     public void onCompleted() {
-
+                        mView.hideLoad();
                     }
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mView.hideLoad();
+                        mView.showError(e.getMessage());
                     }
 
                     @Override

@@ -2,10 +2,9 @@ package com.example.bogdan.testtest;
 
 import android.app.Application;
 
-import com.example.bogdan.testtest.di.AppComponent;
-import com.example.bogdan.testtest.di.AppModule;
-import com.example.bogdan.testtest.di.DaggerAppComponent;
-import com.squareup.leakcanary.LeakCanary;
+import com.example.bogdan.testtest.di.component.AppComponent;
+import com.example.bogdan.testtest.di.module.AppModule;
+import com.example.bogdan.testtest.di.component.DaggerAppComponent;
 
 /**
  * @author Bogdan Kolomiets

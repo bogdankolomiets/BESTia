@@ -1,6 +1,7 @@
 package com.example.bogdan.testtest.presenter;
 
 import com.example.bogdan.testtest.model.BestiaModel;
+import com.example.bogdan.testtest.model.BitmapMapper;
 import com.example.bogdan.testtest.view.View;
 
 import rx.Subscription;
@@ -15,9 +16,11 @@ public abstract class BasePresenter {
 
     private CompositeSubscription mCompositeSubscription = new CompositeSubscription();
     protected final BestiaModel mBestiaModel;
+    protected final BitmapMapper mapper;
 
-    public BasePresenter(BestiaModel bestiaModel) {
+    public BasePresenter(BestiaModel bestiaModel, BitmapMapper mapper) {
         mBestiaModel = bestiaModel;
+        this.mapper = mapper;
     }
 
     protected void addSubscription(Subscription subscription) {
@@ -34,11 +37,4 @@ public abstract class BasePresenter {
         getView().showError(e.getMessage());
     }
 
-    protected void onLoading() {
-        getView().showLoading();
-    }
-
-    protected void onStopLoading() {
-        getView().hideLoading();
-    }
 }

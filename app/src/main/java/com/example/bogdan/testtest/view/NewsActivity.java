@@ -5,7 +5,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -15,8 +14,10 @@ import com.example.bogdan.testtest.App;
 import com.example.bogdan.testtest.Constants;
 import com.example.bogdan.testtest.utils.ImageUtils;
 import com.example.bogdan.testtest.R;
-import com.example.bogdan.testtest.di.NewsPageModule;
+import com.example.bogdan.testtest.di.module.NewsPageModule;
 import com.example.bogdan.testtest.presenter.NewsPagePresenter;
+import com.example.bogdan.testtest.utils.Resizer;
+import com.example.bogdan.testtest.view.common.NewsAdapter;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
  * @version 1
  * @date 10.06.16
  */
-public class NewsActivity extends AppCompatActivity implements NewsPageView, View.OnClickListener{
+public class NewsActivity extends BaseActivity implements NewsPageView, View.OnClickListener{
     private static final int LAYOUT = R.layout.news_layout;
     private static final int BACK_BTN_ID = 1;
 
@@ -46,17 +47,21 @@ public class NewsActivity extends AppCompatActivity implements NewsPageView, Vie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        App.getAppComponent().plus(new NewsPageModule(this)).inject(this);
         setContentView(LAYOUT);
         ButterKnife.bind(this);
-        setupComponent();
+        setupViews();
 
         adapter = new NewsAdapter(this);
         listView.setAdapter(adapter);
         presenter.onCreate(savedInstanceState);
     }
 
-    private void setupComponent() {
+    @Override
+    protected void setupComponent() {
+        App.getAppComponent().plus(new NewsPageModule(this)).inject(this);
+    }
+
+    private void setupViews() {
         Resizer.into(this);
 
         setBackBtn();
@@ -85,25 +90,20 @@ public class NewsActivity extends AppCompatActivity implements NewsPageView, Vie
     }
 
     @Override
-    public void showError(String message) {
-
-    }
-
-    @Override
-    public void showLoading() {
-
-    }
-
-    @Override
-    public void hideLoading() {
-
-    }
-
-    @Override
     public void showNews(List<Bitmap> newsList) {
         for (Bitmap newsItem : newsList) {
             adapter.addNewsItem(newsItem);
         }
+    }
+
+    @Override
+    public void showLoad() {
+        showLoading();
+    }
+
+    @Override
+    public void hideLoad() {
+        hideLoading();
     }
 
     @Override
@@ -121,5 +121,10 @@ public class NewsActivity extends AppCompatActivity implements NewsPageView, Vie
         startActivity(intent);
         overridePendingTransition(R.anim.left_in, R.anim.right_out);
         finish();
+    }
+
+    @Override
+    public void showError(String message) {
+        error(message);
     }
 }

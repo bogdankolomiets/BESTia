@@ -20,16 +20,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content">
 
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <com.example.bogdan.testtest.view.common.ResizebleImageView
                         android:id="@+id/start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <com.example.bogdan.testtest.view.common.ResizebleImageView
                         android:id="@+id/middle"
                         android:layout_below="@+id/start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <com.example.bogdan.testtest.view.common.ResizebleImageView
                         android:id="@+id/end"
                         android:layout_below="@+id/middle"
                         android:layout_width="match_parent"

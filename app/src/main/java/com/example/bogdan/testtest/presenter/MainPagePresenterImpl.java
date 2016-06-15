@@ -13,7 +13,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import rx.Observer;
-import rx.functions.Func1;
 
 /**
  * @author Bogdan Kolomiets
@@ -22,11 +21,10 @@ import rx.functions.Func1;
  */
 public class MainPagePresenterImpl extends BasePresenter implements MainPagePresenter {
     private MainPageView mView;
-    private BitmapMapper mapper = new BitmapMapper();
 
     @Inject
-    public MainPagePresenterImpl(BestiaModel bestiaModel, MainPageView view) {
-        super(bestiaModel);
+    public MainPagePresenterImpl(BestiaModel bestiaModel, BitmapMapper mapper, MainPageView view) {
+        super(bestiaModel, mapper);
         mView = view;
     }
 
@@ -48,7 +46,7 @@ public class MainPagePresenterImpl extends BasePresenter implements MainPagePres
 
                     @Override
                     public void onError(Throwable e) {
-
+                        mView.showError(e.getMessage());
                     }
 
                     @Override

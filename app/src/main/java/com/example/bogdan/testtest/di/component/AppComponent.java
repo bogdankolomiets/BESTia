@@ -1,4 +1,8 @@
-package com.example.bogdan.testtest.di;
+package com.example.bogdan.testtest.di.component;
+
+import com.example.bogdan.testtest.di.module.AppModule;
+import com.example.bogdan.testtest.di.module.MainPageModule;
+import com.example.bogdan.testtest.di.module.NewsPageModule;
 
 import javax.inject.Singleton;
 

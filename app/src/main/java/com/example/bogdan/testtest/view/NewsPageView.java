@@ -9,7 +9,11 @@ import java.util.List;
  * @version 1
  * @date 02.06.16
  */
-public interface NewsPageView extends View {
+public interface NewsPageView extends View{
 
     void showNews(List<Bitmap> newsList);
+
+    void showLoad();
+
+    void hideLoad();
 }

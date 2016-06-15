@@ -1,9 +1,10 @@
-package com.example.bogdan.testtest.di;
+package com.example.bogdan.testtest.di.module;
 
+import com.example.bogdan.testtest.di.ActivityScope;
 import com.example.bogdan.testtest.model.BestiaModel;
+import com.example.bogdan.testtest.model.BitmapMapper;
 import com.example.bogdan.testtest.presenter.NewsPagePresenter;
 import com.example.bogdan.testtest.presenter.NewsPagePresenterImpl;
-import com.example.bogdan.testtest.view.NewsAdapter;
 import com.example.bogdan.testtest.view.NewsPageView;
 
 import dagger.Module;
@@ -24,7 +25,7 @@ public class NewsPageModule {
 
     @Provides
     @ActivityScope
-    public NewsPagePresenter provideNewsPagePresenter(BestiaModel model) {
-        return new NewsPagePresenterImpl(model, mView);
+    public NewsPagePresenter provideNewsPagePresenter(BestiaModel model, BitmapMapper mapper) {
+        return new NewsPagePresenterImpl(model, mapper, mView);
     }
 }

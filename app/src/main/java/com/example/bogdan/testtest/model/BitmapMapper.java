@@ -7,6 +7,8 @@ import com.example.bogdan.testtest.utils.ImageUtils;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import rx.Observable;
 import rx.functions.Func1;
 
@@ -16,6 +18,11 @@ import rx.functions.Func1;
  * @date 07.06.16
  */
 public class BitmapMapper implements Func1<List<String>, List<Bitmap>> {
+
+    @Inject
+    public BitmapMapper() {
+
+    }
 
     @Override
     public List<Bitmap> call(List<String> strings) {

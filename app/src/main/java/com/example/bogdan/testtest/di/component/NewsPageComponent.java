@@ -1,8 +1,9 @@
-package com.example.bogdan.testtest.di;
+package com.example.bogdan.testtest.di.component;
 
+import com.example.bogdan.testtest.di.ActivityScope;
+import com.example.bogdan.testtest.di.module.NewsPageModule;
 import com.example.bogdan.testtest.view.NewsActivity;
 
-import dagger.Component;
 import dagger.Subcomponent;
 
 /**
