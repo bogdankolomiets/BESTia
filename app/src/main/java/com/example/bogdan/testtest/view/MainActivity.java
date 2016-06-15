@@ -38,19 +38,12 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 public class MainActivity extends BaseActivity implements MainPageView, View.OnClickListener {
     private static final int LAYOUT = R.layout.main_layout;
 
-    private static final int FACEBOOK = 1;
-    private static final int TWITTER = 2;
-    private static final int GOOGLE = 3;
-    private static final int INSTAGRAM = 4;
-    private static final int NEWS = 5;
-
     @BindView(R.id.mainBackground) RelativeLayout background;
     @BindView(R.id.mainContainer) RelativeLayout container;
 
     @BindView(R.id.mainScroll) ScrollView scroll;
 
-    @BindView(R.id.start)
-    ResizebleImageView start;
+    @BindView(R.id.start) ResizebleImageView start;
     @BindView(R.id.middle) ResizebleImageView middle;
     @BindView(R.id.end) ResizebleImageView end;
     @BindView(R.id.sticks) ImageView sticks;
@@ -82,7 +75,6 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
 
     private void setupViews() {
         setupBackground();
-        Resizer.into(this);
 
         Resizer.configureView(sticks,
                 Constants.MAIN.WIDTH.STICKS,
@@ -164,7 +156,6 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
     }
 
     private void setupBackground() {
-        Resizer.into(this);
 
         background.setBackgroundDrawable(new BitmapDrawable(getResources(), ImageUtils.decodeBitmap(this, R.drawable.main_background)));
 
@@ -211,25 +202,35 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
     }
 
     @Override
+    public void showNews() {
+        Intent intent = new Intent(this, NewsActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.right_in, R.anim.left_out);
+        finish();
+    }
+
+    @Override
+    public void openSocialPage(String url) {
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case NEWS:
-                Intent intent = new Intent(this, NewsActivity.class);
-                startActivity(intent);
-                overridePendingTransition(R.anim.right_in, R.anim.left_out);
-                finish();
+                presenter.onNewsClick();
                 break;
             case FACEBOOK:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/BESTia2015")));
+                presenter.onSocialPageClick(MainPageView.FACEBOOK);
                 break;
             case TWITTER:
                 // TODO: 15.06.16 set intent to start twitter page
                 break;
             case GOOGLE:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/117373699485632124956/posts")));
+                presenter.onSocialPageClick(MainPageView.GOOGLE);
                 break;
             case INSTAGRAM:
-                startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/bestia2015/")));
+                presenter.onSocialPageClick(MainPageView.INSTAGRAM);
                 break;
         }
     }

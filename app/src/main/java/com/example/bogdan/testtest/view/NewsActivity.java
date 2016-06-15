@@ -1,5 +1,6 @@
 package com.example.bogdan.testtest.view;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -33,13 +34,13 @@ import butterknife.ButterKnife;
  */
 public class NewsActivity extends BaseActivity implements NewsPageView, View.OnClickListener{
     private static final int LAYOUT = R.layout.news_layout;
-    private static final int BACK_BTN_ID = 1;
 
     @BindView(R.id.newsContainer) RelativeLayout container;
     @BindView(R.id.newsListView) ListView listView;
     @BindView(R.id.newsBest) ImageView newsBest;
 
-    private NewsAdapter adapter;
+    @Inject
+    NewsAdapter adapter;
 
     @Inject
     NewsPagePresenter presenter;
@@ -51,7 +52,6 @@ public class NewsActivity extends BaseActivity implements NewsPageView, View.OnC
         ButterKnife.bind(this);
         setupViews();
 
-        adapter = new NewsAdapter(this);
         listView.setAdapter(adapter);
         presenter.onCreate(savedInstanceState);
     }
@@ -62,7 +62,6 @@ public class NewsActivity extends BaseActivity implements NewsPageView, View.OnC
     }
 
     private void setupViews() {
-        Resizer.into(this);
 
         setBackBtn();
         container.setBackgroundDrawable(new BitmapDrawable(getResources(), ImageUtils.decodeBitmap(this, R.drawable.news)));
@@ -79,7 +78,6 @@ public class NewsActivity extends BaseActivity implements NewsPageView, View.OnC
     }
 
     private void setBackBtn() {
-        Resizer.into(this);
         View view = new View(this);
         view.setId(BACK_BTN_ID);
         Resizer.configureView(view,
@@ -94,6 +92,19 @@ public class NewsActivity extends BaseActivity implements NewsPageView, View.OnC
         for (Bitmap newsItem : newsList) {
             adapter.addNewsItem(newsItem);
         }
+    }
+
+    @Override
+    public Context getContext() {
+        return NewsActivity.this;
+    }
+
+    @Override
+    public void showMainPage() {
+        Intent intent = new Intent(NewsActivity.this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.left_in, R.anim.right_out);
+        finish();
     }
 
     @Override
@@ -117,10 +128,7 @@ public class NewsActivity extends BaseActivity implements NewsPageView, View.OnC
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(NewsActivity.this, MainActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.left_in, R.anim.right_out);
-        finish();
+        presenter.onMainPageClick();
     }
 
     @Override

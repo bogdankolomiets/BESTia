@@ -8,7 +8,9 @@ package com.example.bogdan.testtest;
 public class Constants {
 
     public static final class HTTP {
-        public static final String BASE_URL = "file://android_asset/";
+        public static final String FACEBOOK = "https://www.facebook.com/BESTia2015";
+        public static final String GOOGLE = "https://plus.google.com/117373699485632124956/posts";
+        public static final String INSTAGRAM = "https://www.instagram.com/bestia2015/";
     }
 
     public static final class MAIN {
@@ -121,14 +123,35 @@ public class Constants {
             public static final int NEWS_BEST = 18;
             public static final int LIST_VIEW = 0;
         }
+    }
 
-        public static final class R_MARGIN {
+    public static final class NEWS_ADAPTER {
 
+        public static final class WIDTH {
+            public static final int NEWS_POSTER = 562;
+            public static final int NEWS_FRAME = 610;
+            public static final int NEWS_HEADER = 624;
         }
 
-        public static final class B_MARGIN {
-
+        public static final class HEIGHT {
+            public static final int NEWS_POSTER = 794;
+            public static final int NEWS_FRAME = 850;
+            public static final int NEWS_HEADER = 950;
         }
 
+        public static final class L_MARGIN {
+            public static final int NEWS_POSTER = 30;
+            public static final int NEWS_FRAME = 6;
+        }
+
+        public static final class T_MARGIN {
+            public static final int NEWS_POSTER = 68;
+            public static final int NEWS_FRAME = 40;
+        }
+
+        public static final class ROTATION {
+            public static final float POSTER_SPRT_0 = 1.0f;
+            public static final float POSTER_SPRT_1 = -0.7f;
+        }
     }
 }

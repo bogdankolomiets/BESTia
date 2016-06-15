@@ -10,4 +10,6 @@ import android.os.Bundle;
 public interface NewsPagePresenter {
 
     void onCreate(Bundle savedInstanceState);
+
+    void onMainPageClick();
 }

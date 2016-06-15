@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
+import com.example.bogdan.testtest.Constants;
 import com.example.bogdan.testtest.utils.ImageUtils;
 import com.example.bogdan.testtest.R;
 import com.example.bogdan.testtest.utils.Resizer;
@@ -16,6 +17,8 @@ import com.example.bogdan.testtest.utils.MemImageCache;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -61,22 +64,28 @@ public class NewsAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         Holder holder;
-        Bitmap image;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.news_row, parent, false);
             holder = new Holder(convertView);
 
-            Resizer.into((Activity)mContext);
+            Resizer.configureView(holder.newsPoster,
+                    Constants.NEWS_ADAPTER.WIDTH.NEWS_POSTER,
+                    Constants.NEWS_ADAPTER.HEIGHT.NEWS_POSTER);
+            Resizer.setPosition(holder.newsPoster,
+                    Constants.NEWS_ADAPTER.L_MARGIN.NEWS_POSTER,
+                    Constants.NEWS_ADAPTER.T_MARGIN.NEWS_POSTER);
 
-            Resizer.configureView(holder.newsPoster, 562, 794);
-            Resizer.setPosition(holder.newsPoster, 30, 68, 0, 0);
+            Resizer.configureView(holder.newsFrame,
+                    Constants.NEWS_ADAPTER.WIDTH.NEWS_FRAME,
+                    Constants.NEWS_ADAPTER.HEIGHT.NEWS_FRAME);
+            Resizer.setPosition(holder.newsFrame,
+                    Constants.NEWS_ADAPTER.L_MARGIN.NEWS_FRAME,
+                    Constants.NEWS_ADAPTER.T_MARGIN.NEWS_FRAME);
 
-            Resizer.configureView(holder.newsFrame, 610, 850);
-            Resizer.setPosition(holder.newsFrame, 6, 40, 0, 0);
-
-            Resizer.configureView(holder.newsHeader, 624, 950);
-            Resizer.setPosition(holder.newsHeader, 0, 0, 0, 0);
+            Resizer.configureView(holder.newsHeader,
+                    Constants.NEWS_ADAPTER.WIDTH.NEWS_HEADER,
+                    Constants.NEWS_ADAPTER.HEIGHT.NEWS_HEADER);
 
             convertView.setTag(holder);
         } else {
@@ -89,12 +98,12 @@ public class NewsAdapter extends BaseAdapter {
 
         if (position % 2 == 0) {
             loadImage(mContext, R.drawable.news_poster_sprt_0, holder.newsHeader);
-            holder.newsPoster.setRotation(1.0f);
-            holder.newsFrame.setRotation(1.0f);
+            holder.newsPoster.setRotation(Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_0);
+            holder.newsFrame.setRotation(Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_0);
         } else {
             loadImage(mContext, R.drawable.news_poster_sprt_1, holder.newsHeader);
-            holder.newsPoster.setRotation(-0.7f);
-            holder.newsFrame.setRotation(-0.7f);
+            holder.newsPoster.setRotation(-Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_1);
+            holder.newsFrame.setRotation(-Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_1);
         }
 
         return convertView;

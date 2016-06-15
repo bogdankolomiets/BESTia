@@ -58,4 +58,9 @@ public class NewsPagePresenterImpl extends BasePresenter implements NewsPagePres
                     }
                 });
     }
+
+    @Override
+    public void onMainPageClick() {
+        mView.showMainPage();
+    }
 }

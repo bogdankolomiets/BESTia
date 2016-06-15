@@ -10,4 +10,8 @@ import android.os.Bundle;
 public interface MainPagePresenter {
 
     void onCreate(Bundle savedInstanceState);
+
+    void onNewsClick();
+
+    void onSocialPageClick(int btnId);
 }

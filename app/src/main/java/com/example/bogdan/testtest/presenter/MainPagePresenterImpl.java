@@ -3,6 +3,7 @@ package com.example.bogdan.testtest.presenter;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 
+import com.example.bogdan.testtest.Constants;
 import com.example.bogdan.testtest.model.BestiaModel;
 import com.example.bogdan.testtest.model.BitmapMapper;
 import com.example.bogdan.testtest.view.MainPageView;
@@ -56,5 +57,29 @@ public class MainPagePresenterImpl extends BasePresenter implements MainPagePres
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onNewsClick() {
+        mView.showNews();
+    }
+
+    @Override
+    public void onSocialPageClick(int btnId) {
+        switch (btnId) {
+            case MainPageView.FACEBOOK:
+                mView.openSocialPage(Constants.HTTP.FACEBOOK);
+                break;
+            case MainPageView.TWITTER:
+                //do something
+                break;
+            case MainPageView.GOOGLE:
+                mView.openSocialPage(Constants.HTTP.GOOGLE);
+                break;
+            case MainPageView.INSTAGRAM:
+                mView.openSocialPage(Constants.HTTP.INSTAGRAM);
+                break;
+
+        }
     }
 }
