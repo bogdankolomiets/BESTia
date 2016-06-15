@@ -6,6 +6,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
@@ -14,16 +15,18 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 
 import com.example.bogdan.testtest.App;
-import com.example.bogdan.testtest.ImageUtils;
+import com.example.bogdan.testtest.Constants;
+import com.example.bogdan.testtest.utils.ImageUtils;
 import com.example.bogdan.testtest.R;
 import com.example.bogdan.testtest.di.MainPageModule;
 import com.example.bogdan.testtest.presenter.MainPagePresenter;
-import com.squareup.leakcanary.LeakCanary;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
 
 /**
@@ -32,18 +35,30 @@ import me.everything.android.ui.overscroll.OverScrollDecoratorHelper;
  * @date 03.06.16
  */
 public class MainActivity extends AppCompatActivity implements MainPageView, View.OnClickListener {
-    private final int LAYOUT = R.layout.main_layout;
-    private final int FACEBOOK = 1;
-    private final int TWITTER = 2;
-    private final int GOOGLE = 3;
-    private final int INSTAGRAM = 4;
+    private static final int LAYOUT = R.layout.main_layout;
 
-    private ScrollView mScrollView;
+    private static final int FACEBOOK = 1;
+    private static final int TWITTER = 2;
+    private static final int GOOGLE = 3;
+    private static final int INSTAGRAM = 4;
+    private static final int NEWS = 5;
 
-    private ResizebleImageView start, mainLogo, partTwo, partThree, end, sticks, clip, poster1,
-            poster2, poster3, poster4, lighter, metroStick, mainNews, mainMenu;
+    @BindView(R.id.mainBackground) RelativeLayout background;
+    @BindView(R.id.mainContainer) RelativeLayout container;
 
-    private RelativeLayout background, mainContainer;
+    @BindView(R.id.mainScroll) ScrollView scroll;
+
+    @BindView(R.id.start) ResizebleImageView start;
+    @BindView(R.id.middle) ResizebleImageView middle;
+    @BindView(R.id.end) ResizebleImageView end;
+    @BindView(R.id.sticks) ImageView sticks;
+    @BindView(R.id.pin) ImageView pin;
+    @BindView(R.id.metroStick) ImageView metroStick;
+    @BindView(R.id.lighter) ImageView lighter;
+    @BindView(R.id.posterFirst) ImageView poster1;
+    @BindView(R.id.posterSecond) ImageView poster2;
+    @BindView(R.id.posterThird) ImageView poster3;
+    @BindView(R.id.posterFourth) ImageView poster4;
 
     @Inject
     MainPagePresenter presenter;
@@ -53,73 +68,121 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
         super.onCreate(savedInstanceState);
         App.getAppComponent().plus(new MainPageModule(MainActivity.this)).inject(this);
         setContentView(LAYOUT);
-        mainContainer = (RelativeLayout) findViewById(R.id.mainContainer);
-        mScrollView = (ScrollView) findViewById(R.id.mainScroll);
-        mainLogo = (ResizebleImageView) findViewById(R.id.mainLogo);
-        mainNews = (ResizebleImageView) findViewById(R.id.mainNews);
-        mainMenu = (ResizebleImageView) findViewById(R.id.mainMenu);
-        partTwo = (ResizebleImageView) findViewById(R.id.partTwo);
-        partThree = (ResizebleImageView) findViewById(R.id.partThree);
-        sticks = (ResizebleImageView) findViewById(R.id.sticks);
-        clip = (ResizebleImageView) findViewById(R.id.clip);
-        poster1 = (ResizebleImageView) findViewById(R.id.posterFirst);
-        poster2 = (ResizebleImageView) findViewById(R.id.posterSecond);
-        poster3 = (ResizebleImageView) findViewById(R.id.posterThird);
-        poster4 = (ResizebleImageView) findViewById(R.id.posterFourth);
-        metroStick = (ResizebleImageView) findViewById(R.id.metroStick);
-        lighter = (ResizebleImageView) findViewById(R.id.lighter);
-        start = (ResizebleImageView) findViewById(R.id.partZero);
-        end = (ResizebleImageView) findViewById(R.id.partFour);
-        background = (RelativeLayout) findViewById(R.id.background);
-        OverScrollDecoratorHelper.setUpOverScroll(mScrollView);
+        ButterKnife.bind(this);
+        OverScrollDecoratorHelper.setUpOverScroll(scroll);
         setupComponents();
         presenter.onCreate(savedInstanceState);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        System.out.println("onStart");
+    private void setupComponents() {
+        setupBackground();
+        Resizer.into(this);
+
+        Resizer.configureView(sticks,
+                Constants.MAIN.WIDTH.STICKS,
+                Constants.MAIN.HEIGHT.STICKS);
+        Resizer.setPosition(sticks,
+                Constants.MAIN.L_MARGIN.STICKS,
+                Constants.MAIN.T_MARGIN.STICKS);
+        sticks.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_sticks));
+
+        Resizer.configureView(pin,
+                Constants.MAIN.WIDTH.PIN,
+                Constants.MAIN.HEIGHT.PIN);
+        Resizer.setPosition(pin,
+                Constants.MAIN.L_MARGIN.PIN,
+                Constants.MAIN.T_MARGIN.PIN);
+        pin.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_pin));
+
+        Resizer.configureView(poster1,
+                Constants.MAIN.WIDTH.POSTER,
+                Constants.MAIN.HEIGHT.POSTER);
+        Resizer.setPosition(poster1,
+                Constants.MAIN.L_MARGIN.POSTER_1,
+                Constants.MAIN.T_MARGIN.POSTER_1);
+
+        Resizer.configureView(poster2,
+                Constants.MAIN.WIDTH.POSTER,
+                Constants.MAIN.HEIGHT.POSTER);
+        Resizer.setPosition(poster2,
+                Constants.MAIN.L_MARGIN.POSTER_2,
+                Constants.MAIN.T_MARGIN.POSTER_2);
+
+        Resizer.configureView(poster3,
+                Constants.MAIN.WIDTH.POSTER,
+                Constants.MAIN.HEIGHT.POSTER);
+        Resizer.setPosition(poster3,
+                Constants.MAIN.L_MARGIN.POSTER_3,
+                Constants.MAIN.T_MARGIN.POSTER_3);
+
+        Resizer.configureView(poster4,
+                Constants.MAIN.WIDTH.POSTER,
+                Constants.MAIN.HEIGHT.POSTER);
+        Resizer.setPosition(poster4,
+                Constants.MAIN.L_MARGIN.POSTER_4,
+                Constants.MAIN.T_MARGIN.POSTER_4);
+
+        Resizer.configureView(metroStick,
+                Constants.MAIN.WIDTH.METRO_STICK,
+                Constants.MAIN.HEIGHT.METRO_STICK);
+        Resizer.setPosition(metroStick,
+                Constants.MAIN.L_MARGIN.METRO_STICK,
+                Constants.MAIN.T_MARGIN.METRO_STICK);
+        metroStick.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_metro_stick));
+        metroStick.startAnimation(AnimationUtils.loadAnimation(this, R.anim.main_metro_anim));
+
+        Resizer.configureView(lighter,
+                Constants.MAIN.WIDTH.LIGHTER,
+                Constants.MAIN.HEIGHT.LIGHTER);
+        Resizer.setPosition(lighter,
+                Constants.MAIN.L_MARGIN.LIGHTER,
+                Constants.MAIN.T_MARGIN.LIGHTER);
+        lighter.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_light));
+        lighter.startAnimation(AnimationUtils.loadAnimation(this, R.anim.main_light_anim));
+
+        View btnNews = new View(this);
+        btnNews.setId(NEWS);
+        Resizer.configureView(btnNews,
+                Constants.MAIN.WIDTH.BTN_NEWS,
+                Constants.MAIN.HEIGHT.BTN_NEWS);
+        Resizer.setPosition(btnNews,
+                Constants.MAIN.L_MARGIN.BTN_NEWS,
+                Constants.MAIN.T_MARGIN.BTN_NEWS);
+        container.addView(btnNews);
+
+        btnNews.setOnClickListener(this);
+        setupSocialButton(Constants.MAIN.L_MARGIN.SOCIAL_BTN_1, FACEBOOK);
+        setupSocialButton(Constants.MAIN.L_MARGIN.SOCIAL_BTN_2, TWITTER);
+        setupSocialButton(Constants.MAIN.L_MARGIN.SOCIAL_BTN_3, GOOGLE);
+        setupSocialButton(Constants.MAIN.L_MARGIN.SOCIAL_BTN_4, INSTAGRAM);
     }
 
-    private void setupComponents() {
+    private void setupBackground() {
         Resizer.into(this);
+
         background.setBackgroundDrawable(new BitmapDrawable(getResources(), ImageUtils.decodeBitmap(this, R.drawable.main_background)));
-        Resizer.setPosition(mScrollView, 0, -1000, 0, -1000);
-        start.setImage(R.drawable.main_part_0);
-        mainLogo.setImage(R.drawable.logo);
-        mainNews.setImage(R.drawable.main_news);
-        mainNews.setOnClickListener(this);
-        mainMenu.setImage(R.drawable.menu);
-        partTwo.setImage(R.drawable.main_part_2);
-        partThree.setImage(R.drawable.main_part_3);
-        end.setImage(R.drawable.main_part_4);
-        sticks.configureView(459, 410, 106, 1610);
-        sticks.setImage(R.drawable.main_sticks);
-        clip.configureView(33, 44, 228, 3718);
-        clip.setImage(R.drawable.main_pin);
-        poster1.configureView(230, 318, 121, 1632);
-        poster2.configureView(230, 318, 325, 1692);
-        poster3.configureView(230, 318, 75, 4581);
-        poster4.configureView(230, 318, 363, 4579);
-        metroStick.configureView(200, 200, 148, 3650 + 50);
-        metroStick.setImage(R.drawable.main_metro_stick);
-        metroStick.startAnimation(AnimationUtils.loadAnimation(this, R.anim.main_metro_anim));
-        lighter.configureView(100, 100, 394, 4035);
-        lighter.setImage(R.drawable.main_light);
-        lighter.startAnimation(AnimationUtils.loadAnimation(this, R.anim.main_light_anim));
-        setupSocialButton(70, FACEBOOK);
-        setupSocialButton(208, TWITTER);
-        setupSocialButton(381, GOOGLE);
-        setupSocialButton(554, INSTAGRAM);
+
+        Resizer.setPosition(scroll,
+                Constants.MAIN.L_MARGIN.SCROLL,
+                Constants.MAIN.T_MARGIN.SCROLL,
+                Constants.MAIN.R_MARGIN.SCROLL,
+                Constants.MAIN.B_MARGIN.SCROLL);
+
+        start.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.start));
+        middle.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.middle));
+        end.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.end));
     }
 
     private void setupSocialButton(int leftMargin, int id) {
         View btn = new View(this);
         btn.setId(id);
-        Resizer.configureView(btn, 138, 138);
-        Resizer.setPosition(btn, leftMargin, 5255, 0, 0);
-        mainContainer.addView(btn);
+        Resizer.configureView(btn,
+                Constants.MAIN.WIDTH.SOCIAL_BTN,
+                Constants.MAIN.HEIGHT.SOCIAL_BTN);
+        Resizer.setPosition(btn,
+                leftMargin,
+                Constants.MAIN.T_MARGIN.SOCIAL_BTN);
+        container.addView(btn);
         btn.setOnClickListener(this);
     }
 
@@ -140,8 +203,13 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
 
     @Override
     public void showPoster(List<Bitmap> posters) {
-        ResizebleImageView[] images = {poster1, poster2, poster3, poster4};
+        ImageView[] images = {poster1, poster2, poster3, poster4};
         for (int i = 0; i < images.length; i++) {
+            Resizer.into(this);
+            images[i].setBackgroundDrawable(ResourcesCompat.getDrawable(getResources(),
+                    R.drawable.main_poster_frame,
+                    null));
+            Resizer.setPadding(images[i], 9, 9, 9, 9);
             images[i].setImageBitmap(posters.get(i));
         }
     }
@@ -149,7 +217,7 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.mainNews:
+            case NEWS:
                 Intent intent = new Intent(this, NewsActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.right_in, R.anim.left_out);
@@ -159,7 +227,7 @@ public class MainActivity extends AppCompatActivity implements MainPageView, Vie
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/BESTia2015")));
                 break;
             case TWITTER:
-
+                // TODO: 15.06.16 set intent to start twitter page
                 break;
             case GOOGLE:
                 startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://plus.google.com/117373699485632124956/posts")));

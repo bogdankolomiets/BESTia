@@ -1,4 +1,4 @@
-package com.example.bogdan.testtest.model;
+package com.example.bogdan.testtest.utils;
 
 /**
  * @author Bogdan Kolomiets

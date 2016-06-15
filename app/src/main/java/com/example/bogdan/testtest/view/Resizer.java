@@ -57,4 +57,14 @@ public class Resizer {
         view.setLayoutParams(params);
     }
 
+    public static <V extends View> void setPosition(V view, int leftMargin, int topMargin) {
+        setPosition(view, leftMargin, topMargin, 0, 0);
+    }
+
+    public static <V extends View> void setPadding(V view, int leftPadding, int topPadding, int rightPadding, int bottomPadding) {
+
+        view.setPadding((int)(leftPadding * sCoeficient), (int)(topPadding * sCoeficient),
+                (int)(rightPadding * sCoeficient), (int)(bottomPadding * sCoeficient));
+    }
+
 }

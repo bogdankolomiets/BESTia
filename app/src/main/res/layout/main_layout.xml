@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/background"
+        android:id="@+id/mainBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -21,75 +21,55 @@
                     android:layout_height="wrap_content">
 
                     <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/partZero"
+                        android:id="@+id/start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/mainLogo"
-                        android:layout_below="@+id/partZero"
+                        android:id="@+id/middle"
+                        android:layout_below="@+id/start"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/mainNews"
-                        android:layout_below="@+id/mainLogo"
+                        android:id="@+id/end"
+                        android:layout_below="@+id/middle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/mainMenu"
-                        android:layout_below="@+id/mainNews"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/partTwo"
-                        android:layout_below="@+id/mainMenu"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/partThree"
-                        android:layout_below="@+id/partTwo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <ImageView
                         android:id="@+id/posterFirst"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:rotation="3"/>
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <ImageView
                         android:id="@+id/posterSecond"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:rotation="-1"/>
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <ImageView
                         android:id="@+id/sticks"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <ImageView
                         android:id="@+id/metroStick"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/clip"
+                    <ImageView
+                        android:id="@+id/pin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <ImageView
                         android:id="@+id/lighter"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <ImageView
                         android:id="@+id/posterThird"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:rotation="2"/>
-                    <com.example.bogdan.testtest.view.ResizebleImageView
+                    <ImageView
                         android:id="@+id/posterFourth"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:rotation="2.5"/>
-                    <com.example.bogdan.testtest.view.ResizebleImageView
-                        android:id="@+id/partFour"
-                        android:layout_below="@+id/partThree"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
                 </RelativeLayout>
 
         </ScrollView>

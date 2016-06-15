@@ -1,11 +1,9 @@
 package com.example.bogdan.testtest.model;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Looper;
 import android.util.Base64;
 
-import com.example.bogdan.testtest.ImageUtils;
+import com.example.bogdan.testtest.utils.ImageUtils;
 
 import java.util.List;
 

@@ -1,19 +1,22 @@
 package com.example.bogdan.testtest.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 
-import com.example.bogdan.testtest.ImageUtils;
+import com.example.bogdan.testtest.utils.ImageUtils;
 import com.example.bogdan.testtest.R;
-import com.squareup.picasso.LruCache;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author Bogdan Kolomiets
@@ -23,20 +26,14 @@ import java.util.List;
 public class NewsAdapter extends BaseAdapter {
     private Context mContext;
     private List<Bitmap> mNewsList;
-    private android.support.v4.util.LruCache<Integer, Bitmap> mMemoryCache;
+    private MemImageCache mMemoryCache;
 
     public NewsAdapter(Context context) {
         mContext = context;
         mNewsList = new ArrayList<>();
-
         final int maxMemory = (int) (Runtime.getRuntime().maxMemory() / 1024);
         final int cacheSize = maxMemory / 8;
-        mMemoryCache = new android.support.v4.util.LruCache<Integer, Bitmap>(cacheSize) {
-            @Override
-            protected int sizeOf(Integer key, Bitmap value) {
-                return value.getByteCount() / 1024;
-            }
-        };
+        mMemoryCache = new MemImageCache(cacheSize);
     }
 
     @Override
@@ -66,13 +63,19 @@ public class NewsAdapter extends BaseAdapter {
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = inflater.inflate(R.layout.news_row, parent, false);
-            holder = new Holder();
-            holder.newsPoster = (ResizebleImageView) convertView.findViewById(R.id.newsPoster);
-            holder.newsPoster.configureView(562, 794, 30, 68);
-            holder.newsFrame = (ResizebleImageView) convertView.findViewById(R.id.newsFrame);
-            holder.newsFrame.configureView(610, 850, 6, 40);
-            holder.newsHeader = (ResizebleImageView) convertView.findViewById(R.id.newsHeader);
-            holder.newsHeader.configureView(624, 950, 0, 0);
+            holder = new Holder(convertView);
+
+            Resizer.into((Activity)mContext);
+
+            Resizer.configureView(holder.newsPoster, 562, 794);
+            Resizer.setPosition(holder.newsPoster, 30, 68, 0, 0);
+
+            Resizer.configureView(holder.newsFrame, 610, 850);
+            Resizer.setPosition(holder.newsFrame, 6, 40, 0, 0);
+
+            Resizer.configureView(holder.newsHeader, 624, 950);
+            Resizer.setPosition(holder.newsHeader, 0, 0, 0, 0);
+
             convertView.setTag(holder);
         } else {
             holder = (Holder) convertView.getTag();
@@ -95,41 +98,37 @@ public class NewsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void addBitmapToMemoryCache(Integer key, Bitmap bitmap) {
-        if (getBitmapFromMemoryCache(key) == null) {
-            mMemoryCache.put(key, bitmap);
-        }
-    }
-
-    private Bitmap getBitmapFromMemoryCache(Integer key) {
-        return mMemoryCache.get(key);
-    }
-
-    private void loadImage(Context mContext, int resId, ResizebleImageView imageView) {
+    private void loadImage(Context mContext, int resId, ImageView imageView) {
         final Integer key = resId;
-        Bitmap bitmap = getBitmapFromMemoryCache(key);
+        Bitmap bitmap = mMemoryCache.getBitmapFromMemoryCache(key);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else  {
             bitmap = ImageUtils.decodeBitmap(mContext, resId);
-            addBitmapToMemoryCache(key, bitmap);
+            mMemoryCache.addBitmapToMemoryCache(key, bitmap);
         }
     }
 
-    private void loadImage(int position, ResizebleImageView imageView) {
+    private void loadImage(int position, ImageView imageView) {
         final Integer key = position;
-        Bitmap bitmap = getBitmapFromMemoryCache(key);
+        Bitmap bitmap = mMemoryCache.getBitmapFromMemoryCache(key);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else {
+            imageView.setImageBitmap(ImageUtils.decodeBitmap(mContext, R.drawable.placeholder));
             bitmap = getItem(position);
-            addBitmapToMemoryCache(key, bitmap);
+            imageView.setImageBitmap(bitmap);
+            mMemoryCache.addBitmapToMemoryCache(key, bitmap);
         }
     }
 
-    private static class Holder {
-        ResizebleImageView newsPoster;
-        ResizebleImageView newsFrame;
-        ResizebleImageView newsHeader;
+    static class Holder {
+        @BindView(R.id.newsPoster) ImageView newsPoster;
+        @BindView(R.id.newsFrame) ImageView newsFrame;
+        @BindView(R.id.newsHeader) ImageView newsHeader;
+
+        public Holder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }
