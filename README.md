@@ -4,9 +4,9 @@ This is an example Android application with using custom adaptive design. This a
 To see example app you can [here]
 
 ##Libraries
-[Dagger2] for dapendency injection
-[RxAndroid] for Rx programming
-[ButterKnife] for injection views
+-[Dagger2] for dapendency injection.
+-[RxAndroid] for Rx programming.
+-[ButterKnife] for injection views.
 
 
 
