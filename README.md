@@ -11,7 +11,7 @@ To see example app you can [here]
 
 
 
-[here] : https://github.com/bogdankolomiets/BESTia
-[Dagger2] : http://google.github.io/dagger/
-[RxAndroid] : https://github.com/ReactiveX/RxAndroid
-[ButterKnife] : http://jakewharton.github.io/butterknife/
+[here] : <https://github.com/bogdankolomiets/BESTia>
+[Dagger2] : <http://google.github.io/dagger/>
+[RxAndroid] : <https://github.com/ReactiveX/RxAndroid>
+[ButterKnife] : <http://jakewharton.github.io/butterknife/>
