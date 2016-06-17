@@ -16,6 +16,10 @@ public class Constants {
     public static final class MAIN {
 
         public static final class WIDTH {
+            public static final int BACKGROUND = 750;
+            public static final int START = 750;
+            public static final int MIDDLE = 750;
+            public static final int END = 750;
             public static final int STICKS = 459;
             public static final int PIN = 50;
             public static final int POSTER = 230;
@@ -26,6 +30,10 @@ public class Constants {
         }
 
         public static final class HEIGHT {
+            public static final int BACKGROUND = 1334;
+            public static final int START = 3288;
+            public static final int MIDDLE = 202;
+            public static final int END = 3010;
             public static final int STICKS = 410;
             public static final int PIN = 66;
             public static final int POSTER = 318;
@@ -105,11 +113,13 @@ public class Constants {
     public static final class NEWS {
 
         public static final class WIDTH {
+            public static final int BACKGROUND = 750;
             public static final int NEWS_BEST = 234;
             public static final int BACK_BTN = 112;
         }
 
         public static final class HEIGHT {
+            public static final int BACKGROUND = 1334;
             public static final int NEWS_BEST = 183;
             public static final int BACK_BTN = 1334;
         }

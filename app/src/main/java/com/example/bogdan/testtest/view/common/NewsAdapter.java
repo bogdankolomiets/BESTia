@@ -94,14 +94,26 @@ public class NewsAdapter extends BaseAdapter {
 
         loadImage(position, holder.newsPoster);
 
-        loadImage(mContext, R.drawable.news_poster_frame, holder.newsFrame);
+        loadImage(mContext,
+                R.drawable.news_poster_frame,
+                holder.newsFrame,
+                Constants.NEWS_ADAPTER.WIDTH.NEWS_FRAME,
+                Constants.NEWS_ADAPTER.HEIGHT.NEWS_FRAME);
 
         if (position % 2 == 0) {
-            loadImage(mContext, R.drawable.news_poster_sprt_0, holder.newsHeader);
+            loadImage(mContext,
+                    R.drawable.news_poster_sprt_0,
+                    holder.newsHeader,
+                    Constants.NEWS_ADAPTER.WIDTH.NEWS_HEADER,
+                    Constants.NEWS_ADAPTER.HEIGHT.NEWS_HEADER);
             holder.newsPoster.setRotation(Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_0);
             holder.newsFrame.setRotation(Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_0);
         } else {
-            loadImage(mContext, R.drawable.news_poster_sprt_1, holder.newsHeader);
+            loadImage(mContext,
+                    R.drawable.news_poster_sprt_1,
+                    holder.newsHeader,
+                    Constants.NEWS_ADAPTER.WIDTH.NEWS_HEADER,
+                    Constants.NEWS_ADAPTER.HEIGHT.NEWS_HEADER);
             holder.newsPoster.setRotation(-Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_1);
             holder.newsFrame.setRotation(-Constants.NEWS_ADAPTER.ROTATION.POSTER_SPRT_1);
         }
@@ -109,13 +121,13 @@ public class NewsAdapter extends BaseAdapter {
         return convertView;
     }
 
-    private void loadImage(Context mContext, int resId, ImageView imageView) {
+    private void loadImage(Context mContext, int resId, ImageView imageView, int width, int height) {
         final Integer key = resId;
         Bitmap bitmap = mMemoryCache.getBitmapFromMemoryCache(key);
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else  {
-            bitmap = ImageUtils.decodeBitmap(mContext, resId);
+            bitmap = ImageUtils.decodeBitmap(mContext, resId, width, height);
             mMemoryCache.addBitmapToMemoryCache(key, bitmap);
         }
     }
@@ -126,7 +138,10 @@ public class NewsAdapter extends BaseAdapter {
         if (bitmap != null) {
             imageView.setImageBitmap(bitmap);
         } else {
-            imageView.setImageBitmap(ImageUtils.decodeBitmap(mContext, R.drawable.placeholder));
+            imageView.setImageBitmap(ImageUtils.decodeBitmap(mContext,
+                    R.drawable.placeholder,
+                    Constants.NEWS_ADAPTER.WIDTH.NEWS_POSTER,
+                    Constants.NEWS_ADAPTER.HEIGHT.NEWS_POSTER));
             bitmap = getItem(position);
             imageView.setImageBitmap(bitmap);
             mMemoryCache.addBitmapToMemoryCache(key, bitmap);

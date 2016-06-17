@@ -82,7 +82,10 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
         Resizer.setPosition(sticks,
                 Constants.MAIN.L_MARGIN.STICKS,
                 Constants.MAIN.T_MARGIN.STICKS);
-        sticks.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_sticks));
+        sticks.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.main_sticks,
+                Constants.MAIN.WIDTH.STICKS,
+                Constants.MAIN.HEIGHT.STICKS));
 
         Resizer.configureView(pin,
                 Constants.MAIN.WIDTH.PIN,
@@ -90,7 +93,10 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
         Resizer.setPosition(pin,
                 Constants.MAIN.L_MARGIN.PIN,
                 Constants.MAIN.T_MARGIN.PIN);
-        pin.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_pin));
+        pin.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.main_pin,
+                Constants.MAIN.WIDTH.PIN,
+                Constants.MAIN.HEIGHT.PIN));
 
         Resizer.configureView(poster1,
                 Constants.MAIN.WIDTH.POSTER,
@@ -126,7 +132,10 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
         Resizer.setPosition(metroStick,
                 Constants.MAIN.L_MARGIN.METRO_STICK,
                 Constants.MAIN.T_MARGIN.METRO_STICK);
-        metroStick.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_metro_stick));
+        metroStick.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.main_metro_stick,
+                Constants.MAIN.WIDTH.METRO_STICK,
+                Constants.MAIN.HEIGHT.METRO_STICK));
         metroStick.startAnimation(AnimationUtils.loadAnimation(this, R.anim.main_metro_anim));
 
         Resizer.configureView(lighter,
@@ -135,7 +144,10 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
         Resizer.setPosition(lighter,
                 Constants.MAIN.L_MARGIN.LIGHTER,
                 Constants.MAIN.T_MARGIN.LIGHTER);
-        lighter.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.main_light));
+        lighter.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.main_light,
+                Constants.MAIN.WIDTH.LIGHTER,
+                Constants.MAIN.HEIGHT.LIGHTER));
         lighter.startAnimation(AnimationUtils.loadAnimation(this, R.anim.main_light_anim));
 
         View btnNews = new View(this);
@@ -157,7 +169,10 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
 
     private void setupBackground() {
 
-        background.setBackgroundDrawable(new BitmapDrawable(getResources(), ImageUtils.decodeBitmap(this, R.drawable.main_background)));
+        background.setBackgroundDrawable(new BitmapDrawable(getResources(), ImageUtils.decodeBitmap(this,
+                R.drawable.main_background,
+                Constants.MAIN.WIDTH.BACKGROUND,
+                Constants.MAIN.HEIGHT.BACKGROUND)));
 
         Resizer.setPosition(scroll,
                 Constants.MAIN.L_MARGIN.SCROLL,
@@ -165,9 +180,18 @@ public class MainActivity extends BaseActivity implements MainPageView, View.OnC
                 Constants.MAIN.R_MARGIN.SCROLL,
                 Constants.MAIN.B_MARGIN.SCROLL);
 
-        start.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.start));
-        middle.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.middle));
-        end.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.end));
+        start.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.start,
+                Resizer.resize(Constants.MAIN.WIDTH.START),
+                Resizer.resize(Constants.MAIN.HEIGHT.START)));
+        middle.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.middle,
+                Resizer.resize(Constants.MAIN.WIDTH.MIDDLE),
+                Resizer.resize(Constants.MAIN.HEIGHT.MIDDLE)));
+        end.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.end,
+                Resizer.resize(Constants.MAIN.WIDTH.END),
+                Resizer.resize(Constants.MAIN.HEIGHT.END)));
     }
 
     private void setupSocialButton(int leftMargin, int id) {

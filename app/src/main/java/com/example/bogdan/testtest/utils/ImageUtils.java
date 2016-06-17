@@ -19,6 +19,11 @@ public class ImageUtils {
         return BitmapFactory.decodeResource(context.getResources(), resId, getOptions());
     }
 
+    public static Bitmap decodeBitmap(Context context, int resId, int width, int height) {
+        Bitmap bitmap = decodeBitmap(context, resId);
+        return Bitmap.createScaledBitmap(bitmap, width, height, false);
+    }
+
     public static Bitmap decodeBitmap(byte[] decodeArray) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(decodeArray, 0, decodeArray.length, getOptions());
         return bitmap;
@@ -31,11 +36,12 @@ public class ImageUtils {
 
     private static BitmapFactory.Options getOptions() {
         final BitmapFactory.Options options = new BitmapFactory.Options();
-        options.inSampleSize = 2;
+        options.inSampleSize = 1;
         options.inPreferredConfig = Bitmap.Config.RGB_565;
 
         return options;
     }
+
 
 
 }

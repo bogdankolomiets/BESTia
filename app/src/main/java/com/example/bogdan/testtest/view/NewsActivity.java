@@ -64,9 +64,14 @@ public class NewsActivity extends BaseActivity implements NewsPageView, View.OnC
     private void setupViews() {
 
         setBackBtn();
-        container.setBackgroundDrawable(new BitmapDrawable(getResources(), ImageUtils.decodeBitmap(this, R.drawable.news)));
+        container.setBackgroundDrawable(new BitmapDrawable(getResources(), ImageUtils.decodeBitmap(this,
+                R.drawable.news,
+                Constants.NEWS.WIDTH.BACKGROUND,
+                Constants.NEWS.HEIGHT.BACKGROUND)));
 
-        Resizer.setPosition(listView, Constants.NEWS.L_MARGIN.LIST_VIEW, Constants.NEWS.T_MARGIN.LIST_VIEW);
+        Resizer.setPosition(listView,
+                Constants.NEWS.L_MARGIN.LIST_VIEW,
+                Constants.NEWS.T_MARGIN.LIST_VIEW);
 
         Resizer.configureView(newsBest,
                 Constants.NEWS.WIDTH.NEWS_BEST,
@@ -74,7 +79,10 @@ public class NewsActivity extends BaseActivity implements NewsPageView, View.OnC
         Resizer.setPosition(newsBest,
                 Constants.NEWS.L_MARGIN.NEWS_BEST,
                 Constants.NEWS.T_MARGIN.NEWS_BEST);
-        newsBest.setImageBitmap(ImageUtils.decodeBitmap(this, R.drawable.news_best));
+        newsBest.setImageBitmap(ImageUtils.decodeBitmap(this,
+                R.drawable.news_best,
+                Constants.NEWS.WIDTH.NEWS_BEST,
+                Constants.NEWS.HEIGHT.NEWS_BEST));
     }
 
     private void setBackBtn() {

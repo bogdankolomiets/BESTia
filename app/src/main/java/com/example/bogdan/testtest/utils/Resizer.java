@@ -31,6 +31,10 @@ public class Resizer {
         sCoeficient = getCoeficient(activity);
     }
 
+    public static int resize(int pixelSize) {
+        return (int)(sCoeficient * pixelSize);
+    }
+
     public static <V extends View> void configureView(V view, int width, int height) {
         RelativeLayout.LayoutParams params =
                 new RelativeLayout.LayoutParams((int)(sCoeficient * width), (int)(sCoeficient * height));
